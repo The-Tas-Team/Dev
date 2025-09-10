@@ -1,0 +1,65 @@
+Certainly! Below is a simple example of code that you might find in a GitHub repository related to a rover project. This code is a basic Python script that simulates a rover moving in a grid and avoiding obstacles.
+
+### Python Code Example
+
+```python
+class Rover:
+    def __init__(self, grid_size, position=(0, 0)):
+        self.grid_size = grid_size
+        self.position = position
+        self.obstacles = set()
+
+    def add_obstacle(self, obstacle):
+        """Add an obstacle to the grid."""
+        if 0 <= obstacle[0] < self.grid_size[0] and 0 <= obstacle[1] < self.grid_size[1]:
+            self.obstacles.add(obstacle)
+
+    def move(self, direction):
+        """Move the rover in the given direction if no obstacle is in the way."""
+        x, y = self.position
+        if direction == 'N':
+            new_position = (x, y + 1)
+        elif direction == 'S':
+            new_position = (x, y - 1)
+        elif direction == 'E':
+            new_position = (x + 1, y)
+        elif direction == 'W':
+            new_position = (x - 1, y)
+        else:
+            print("Invalid direction.")
+            return
+
+        if new_position in self.obstacles:
+            print("Obstacle detected! Movement blocked.")
+        elif 0 <= new_position[0] < self.grid_size[0] and 0 <= new_position[1] < self.grid_size[1]:
+            self.position = new_position
+            print(f"Rover moved to {self.position}.")
+        else:
+            print("Rover cannot move outside the grid.")
+
+    def get_position(self):
+        """Return the current position of the rover."""
+        return self.position
+
+# Example usage
+if __name__ == "__main__":
+    rover = Rover(grid_size=(5, 5))
+    rover.add_obstacle((2, 2))
+    rover.move('N')
+    rover.move('E')
+    rover.move('E')
+    rover.move('N')
+    rover.move('N')  # Obstacle should block this move
+    print(f"Final position: {rover.get_position()}")
+```
+
+### Explanation
+
+- **Rover Class**: This class represents a rover that can move within a grid. It has methods to add obstacles, move in a specified direction, and get the current position.
+- **`__init__` Method**: Initializes the rover with a grid size and an optional starting position (default is `(0, 0)`).
+- **add_obstacle Method**: Allows adding obstacles to specific grid locations.
+- **move Method**: Moves the rover in one of four cardinal directions: North (`N`), South (`S`), East (`E`), or West (`W`). It checks for obstacles and ensures the rover stays within the grid boundaries.
+- **get_position Method**: Returns the current position of the rover.
+- **Example Usage**: Demonstrates how to create a `Rover` object, add an obstacle, and make several moves.
+
+You can adapt this code to add more features or handle additional scenarios as required by your project. This basic implementation should serve as a starting point for testing rover behavior.
